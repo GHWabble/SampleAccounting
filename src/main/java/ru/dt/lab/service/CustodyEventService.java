@@ -1,4 +1,4 @@
-package lab_5.service;
+package ru.dt.lab.service;
 
 import lab_5.domain.CustodyEvent;
 
