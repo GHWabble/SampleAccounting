@@ -3,6 +3,13 @@ package ru.dt.lab.domain;
 import java.time.Instant;
 
 public final class Sample {
+
+    private void validateString(String value, int maxLength, String fieldName) {
+        if (value == null || value.isEmpty() || value.length() > maxLength) {
+            throw new IllegalArgumentException(fieldName + " недействителен :(");
+        }
+    }
+
         // Уникальный номер образца. Программа назначает сама.
         private final long id;
 
@@ -49,11 +56,9 @@ public final class Sample {
         }
 
         public void setName(String name) {
-            if(!name.isEmpty() && name.length() < 128) {
-                this.name = name;
-            } else{
-                throw new IllegalArgumentException();
-            }
+            validateString(name, 128, "Name");
+            this.name = name;
+            this.updatedAt = Instant.now();
         }
 
         public String getType() {
@@ -61,11 +66,9 @@ public final class Sample {
         }
 
         public void setType(String type) {
-            if(!type.isEmpty() && type.length() < 64) {
-                this.type = type;
-            } else{
-                throw new IllegalArgumentException();
-            }
+            validateString(type, 64, "Type");
+            this.type = type;
+            this.updatedAt = Instant.now();
         }
 
         public String getLocation() {
@@ -73,12 +76,9 @@ public final class Sample {
         }
 
         public void setLocation(String location) {
-            if(!location.isEmpty() && location.length() < 64) {
-                this.location = location;
-            }
-            else{
-                throw new IllegalArgumentException();
-            }
+            validateString(location, 64, "Location");
+            this.location = location;
+            this.updatedAt = Instant.now();
         }
 
         public SampleHoldStatus getStatus() {
@@ -86,11 +86,8 @@ public final class Sample {
         }
 
         public void setStatus(SampleHoldStatus status) {
-            if (status == SampleHoldStatus.ACTIVE) {
-                this.status = status;
-            } else {
-                throw new IllegalArgumentException();
-            }
+            this.status = status;
+            this.updatedAt = Instant.now();
         }
 
         public String getOwnerUsername() {
@@ -98,9 +95,9 @@ public final class Sample {
         }
 
         public void setOwnerUsername(String ownerUsername) {
-            if (ownerUsername.isEmpty()){
-                this.ownerUsername = ownerUsername;
-            }
+            validateString(ownerUsername, 64, "ownerUsername");
+            this.ownerUsername = ownerUsername;
+            this.updatedAt = Instant.now();
         }
 
         public Instant getCreatedAt() {
