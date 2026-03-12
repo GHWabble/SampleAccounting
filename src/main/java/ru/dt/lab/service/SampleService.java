@@ -1,7 +1,7 @@
-package lab_5.service;
+package ru.dt.lab.service;
 
-import lab_5.domain.Sample;
-import lab_5.domain.SampleHoldStatus;
+import lab.domain.Sample;
+import lab.domain.SampleHoldStatus;
 
 import java.util.HashSet;
 import java.util.Set;
