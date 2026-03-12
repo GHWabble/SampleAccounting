@@ -1,7 +1,7 @@
-package lab_5.service;
+package ru.dt.lab.service;
 
-import lab_5.domain.Seal;
-import lab_5.domain.SealStatus;
+import lab.domain.Seal;
+import lab.domain.SealStatus;
 
 import java.util.HashSet;
 import java.util.Set;
