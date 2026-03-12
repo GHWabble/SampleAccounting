@@ -1,6 +1,6 @@
-package lab_5.service;
+package ru.dt.lab.service;
 
-import lab_5.domain.CustodyEvent;
+import lab.domain.CustodyEvent;
 
 import java.util.*;
 
