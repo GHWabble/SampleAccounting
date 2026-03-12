@@ -3,6 +3,13 @@ package ru.dt.lab.domain;
 import java.time.Instant;
 
 public final class Seal {
+
+    private void validateString(String value, int maxLength, String fieldName) {
+        if (value == null || value.isEmpty() || value.length() > maxLength) {
+            throw new IllegalArgumentException(fieldName + " недействителен :(");
+        }
+    }
+
     // Уникальный номер пломбы. Программа назначает сама.
     private final long id;
 
@@ -45,6 +52,7 @@ public final class Seal {
 
     public void setSampleId(long sampleId) {
         this.sampleId = sampleId;
+        this.updatedAt = Instant.now();
     }
 
     public String getSealNumber() {
@@ -52,11 +60,9 @@ public final class Seal {
     }
 
     public void setSealNumber(String sealNumber) {
-        if(!sealNumber.isEmpty() && sealNumber.length() < 64) {
-            this.sealNumber = sealNumber;
-        } else{
-            throw new IllegalArgumentException();
-        }
+        validateString(sealNumber, 64, "sealNumber");
+        this.sealNumber = sealNumber;
+        this.updatedAt = Instant.now();
     }
 
     public SealStatus getStatus() {
@@ -65,6 +71,7 @@ public final class Seal {
 
     public void setStatus(SealStatus status) {
         this.status = status;
+        this.updatedAt = Instant.now();
     }
 
     public String getOwnerUsername() {
@@ -72,7 +79,9 @@ public final class Seal {
     }
 
     public void setOwnerUsername(String ownerUsername) {
+        validateString(ownerUsername, 64, "ownerUsername");
         this.ownerUsername = ownerUsername;
+        this.updatedAt = Instant.now();
     }
 
     public Instant getCreatedAt() {

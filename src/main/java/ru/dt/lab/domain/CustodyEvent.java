@@ -3,6 +3,13 @@ package ru.dt.lab.domain;
 import java.time.Instant;
 
 public final class CustodyEvent {
+
+    private void validateString(String value, int maxLength, String fieldName) {
+        if (value == null || value.isEmpty() || value.length() > maxLength) {
+            throw new IllegalArgumentException(fieldName + " недействителен :(");
+        }
+    }
+
         // Уникальный номер события передачи. Программа назначает сама.
         private final long id;
 
@@ -60,11 +67,8 @@ public final class CustodyEvent {
         }
 
         public void setFromUser(String fromUser) {
-            if(!fromUser.isEmpty() && fromUser.length() < 64) {
+            validateString(fromUser, 64, "fromUser");
                 this.fromUser = fromUser;
-            } else {
-                throw new IllegalArgumentException();
-            }
         }
 
         public String getToUser() {
@@ -72,11 +76,8 @@ public final class CustodyEvent {
         }
 
         public void setToUser(String toUser) {
-            if(!toUser.isEmpty() && toUser.length() < 64) {
+            validateString(toUser, 64, "toUser");
                 this.toUser = toUser;
-            } else {
-                throw new IllegalArgumentException();
-            }
         }
 
         public String getLocation() {
@@ -84,23 +85,19 @@ public final class CustodyEvent {
         }
 
         public void setLocation(String location) {
-            if(!location.isEmpty() && location.length() < 64) {
+            validateString(location, 64, "Location");
                 this.location=  location;
-            } else {
-                throw new IllegalArgumentException();
-            }
         }
 
         public String getComment() {
             return comment;
         }
 
-        public void setComment(String comment) {
-            if (comment.length() < 128) {
-                this.comment = comment;
-            } else{
-                throw new IllegalArgumentException();
-            }
+    public void setComment(String comment) {
+        if (comment != null && comment.length() > 128) {
+            throw new IllegalArgumentException("Комментарий слишком длинный (макс. 128 символов) :(");
+        }
+        this.comment = (comment == null) ? "" : comment;
     }
 
     public Instant getTransferredAt() {
@@ -120,7 +117,8 @@ public final class CustodyEvent {
     }
 
     public void setOwnerUsername(String ownerUsername) {
-        this.ownerUsername = ownerUsername;
+        validateString(ownerUsername, 64, "ownerUsername");
+            this.ownerUsername = ownerUsername;
     }
 
     @Override
@@ -135,10 +133,4 @@ public final class CustodyEvent {
         public int hashCode() {
             return Long.hashCode(id);
         }
-}
-
-    @Override
-    public int hashCode() {
-        return Long.hashCode(id);
-    }
 }
